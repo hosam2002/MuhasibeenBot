@@ -1,10 +1,10 @@
-const { viewers } = require('./modules/viewers')
 const { Telegraf, Input, Types } = require('telegraf')
 const { message } = require('telegraf/filters')
 const { readFileSync, appendFileSync } = require('fs')
 
-const ownerID = `6712047100`
-const bot = new Telegraf(process.env.TOKEN)
+const ownerID = `6712047100` // bot owner id
+const bot = new Telegraf(process.env.TOKEN) // bot unique token
+const viewers = [] // to calculate bot viewers
 
 // on start
 
@@ -39,11 +39,11 @@ bot.start((ctx) => {
 
 // callback -> books main
 
-bot.action('books', (ctx) => {
+bot.action('books', async (ctx) => {
 
     const msg = readFileSync('./contents/messages/books.txt', 'utf-8')
 
-    ctx.editMessageText(msg, {
+    await ctx.editMessageText(msg, {
 
         reply_markup: {
 
@@ -59,11 +59,11 @@ bot.action('books', (ctx) => {
 
 // callback -> sheets main
 
-bot.action('sheets', (ctx) => {
+bot.action('sheets', async (ctx) => {
 
     const msg = readFileSync('./contents/messages/sheets.txt', 'utf-8')
 
-    ctx.editMessageText(msg, {
+    await ctx.editMessageText(msg, {
 
         reply_markup: {
 
@@ -126,11 +126,11 @@ bot.action('sheet-4', async (ctx) => {
 
 // callback -> exams
 
-bot.action('exams', (ctx) => {
+bot.action('exams', async (ctx) => {
 
     const msg = readFileSync('./contents/messages/exams.txt')
 
-    ctx.editMessageText(msg, {
+    await ctx.editMessageText(msg, {
 
         reply_markup: {
 
@@ -145,31 +145,49 @@ bot.action('exams', (ctx) => {
 
 // callback -> info
 
-bot.action('info', (ctx) => {
+bot.action('info', async (ctx) => {
 
     const msg = readFileSync('./contents/messages/info.txt', 'utf-8')
+    const id = ctx.chat.id
 
-    ctx.editMessageText(msg,{
+    if (id == ownerID) {
 
-        reply_markup: {
+        await ctx.editMessageText(msg, {
 
-            inline_keyboard: [
+            reply_markup: {
+    
+                inline_keyboard: [
+    
+                    [{text: 'عـدد الـزُوار', callback_data: `views`}],                    
+                    [{text: 'رجــوع', callback_data: 'home'}]
+                ]
+            }
+        })
 
-                [{text: 'راسلنــي', url: `https://t.me/hosamumbaddi`}],
-                [{text: 'رجــوع', callback_data: 'home'}]
-            ]
-        }
-    })
+    } else {
+
+        await ctx.editMessageText(msg, {
+
+            reply_markup: {
+    
+                inline_keyboard: [
+    
+                    [{text: 'راسلنــي', url: `https://t.me/hosamumbaddi`}],                    
+                    [{text: 'رجــوع', callback_data: 'home'}]
+                ]
+            }
+        })
+    }
 })
 
 // back home
 
-bot.action('home', (ctx) => {
+bot.action('home', async (ctx) => {
 
     const name = ctx.chat.first_name
     const msg = readFileSync('./contents/messages/welcome.txt', 'utf-8')
 
-    ctx.editMessageText(`مرحبـاً ${name}\n\n${msg}`, {
+    await ctx.editMessageText(`مرحبـاً ${name}\n\n${msg}`, {
 
         reply_markup: {
 
@@ -186,12 +204,18 @@ bot.action('home', (ctx) => {
 
 // to check the bot viewers
 
-bot.on('/subs', (ctx) => {
+bot.action('views', async (ctx) => {
 
-    if (ctx.chat.id == ownerID) {
+    await ctx.editMessageText(`عـدد الـزُار\n${viewers.length}`, {
 
-        ctx.reply(`عدد الـزوار\n${viewers.length}`)
-    }
+        reply_markup: {
+
+            inline_keyboard: [
+
+                [{text: 'رجــوع', callback_data: 'info'}]
+            ]
+        }
+    })
 })
 
 // bot init
