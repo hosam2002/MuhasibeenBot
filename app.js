@@ -130,7 +130,9 @@ bot.action('sheet-4', async (ctx) => {
 
 bot.action('exams', (ctx) => {
 
-    ctx.editMessageText(`عـذراً، لا تـوجد امتحـانات الان!\n\nاذا عندك امتـحانات وعايز تضيفهـا في البوت راسـلني خـاص`, {
+    const msg = readFileSync('./contents/messages/exams.txt')
+
+    ctx.editMessageText(msg, {
 
         reply_markup: {
 
