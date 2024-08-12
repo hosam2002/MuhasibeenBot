@@ -3,7 +3,6 @@ const { Telegraf, Input, Types } = require('telegraf')
 const { message } = require('telegraf/filters')
 const { readFileSync } = require('fs')
 
-// 7289855362:AAFYK8gyT2QN4tbTe8fTiTwjAqLca0eEIZI
 const ownerID = `6712047100`
 const bot = new Telegraf(process.env.TOKEN)
 
@@ -80,8 +79,8 @@ bot.action('sheets', (ctx) => {
 
 // variables
 
-const marketing = './contents/books/Marketing.pdf'
-const costAccounting = './contents/books/CostAccounting.pdf'
+const marketing = './contents/book/Marketing.pdf'
+const costAccounting = './contents/book/CostAccounting.pdf'
 
 // marketing
 
