@@ -2,7 +2,7 @@
 
 const { Telegraf, Input } = require('telegraf')
 const { message } = require('telegraf/filters')
-const { readFileSync, appendFileSync } = require('fs')
+const { readFileSync } = require('fs')
 
 // bot token and owner id
 
@@ -180,3 +180,8 @@ bot.action('info', async (ctx) => {
 // init
 
 bot.launch()
+
+// enable gracefull stop
+
+process.once('SIGINT', () => bot.stop('SIGINT'))
+process.once('SIGTERM', () => bot.stop('STGTERM'))
