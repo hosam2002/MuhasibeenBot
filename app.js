@@ -186,11 +186,11 @@ bot.action('home', (ctx) => {
 
 // to check the bot viewers
 
-bot.on('views', (ctx) => {
+bot.command('/subs', async (ctx) => {
 
     if (ctx.chat.id == ownerID) {
 
-        ctx.reply(`عدد الـزوار\n${viewers.length}`)
+        await ctx.reply(`عدد الـزوار\n${viewers.length}`)
     }
 })
 
