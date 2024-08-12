@@ -76,7 +76,7 @@ const marketing       = './contents/book/Marketing.pdf' // كتــاب التـ
 const costAccounting  = './contents/book/CostAccounting.pdf' // كتــاب محاسبـة التكــاليف
 
 const marketingSheet  = './contents/sheets/Marketing.pdf' // مـلخص مبادئ التسـويق
-const computerSheet   = './contents/sheets/ComputerBasic.pdf' // ملخص اســـاسيات الكمبيــوتر
+const computerSheet   = './contents/sheets/ComputerBasics.pdf' // ملخص اســـاسيات الكمبيــوتر
 const commercialSheet = './contents/sheets/Commercial.pdf' // ملخــص القـانون التجاري
 const statisticsSheet = './contents/sheets/Statistics.pdf' // ملخص الاحصــاء
 
