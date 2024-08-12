@@ -39,7 +39,7 @@ bot.start((ctx) => {
     })
 })
 
-// books
+// callback -> books main
 
 bot.action('books', (ctx) => {
 
@@ -57,7 +57,7 @@ bot.action('books', (ctx) => {
     })
 })
 
-// sheets
+// callback -> sheets main
 
 bot.action('sheets', (ctx) => {
 
@@ -77,19 +77,52 @@ bot.action('sheets', (ctx) => {
     })
 })
 
+
 // variables
 
-const marketing = './contents/book/Marketing.pdf'
-const costAccounting = './contents/book/CostAccounting.pdf'
+const marketing = './contents/book/Marketing.pdf' // كتــاب التـسويق
+const costAccounting = './contents/book/CostAccounting.pdf' // كتــاب محاسبـة التكــاليف
 
-// marketing
+const marketingSheet  = './contents/sheets/Marketing.pdf' // مـلخص مبادئ التسـويق
+const computerSheet   = './contents/sheets/ComputerBasic.pdf' // ملخص اســـاسيات الكمبيــوتر
+const commercialSheet = './contents/sheets/Commercial.pdf' // ملخــص القـانون التجاري
+const statisticsSheet = './contents/sheets/Statistics.pdf' // ملخص الاحصــاء
 
-bot.action('sheet-1', async (ctx) => {
+// callback -> books
+
+bot.action('book-1', async (ctx) => {
+
+    await ctx.replyWithDocument(Input.fromLocalFile(costAccounting, 'محــاسبة_التكــاليف.pdf'))
+})
+
+bot.action('book-2', async (ctx) => {
 
     await ctx.replyWithDocument(Input.fromLocalFile(marketing, 'مبـادئ_التســويق.pdf'))
 })
 
-// exams
+// callback -> sheets
+
+bot.action('sheet-1', async (ctx) => {
+
+    await ctx.replyWithDocument(Input.fromLocalFile(marketingSheet, 'مٌـلخص_مبادئ_التـسويق.pdf'))
+})
+
+bot.action('sheet-2', async (ctx) => {
+
+    await ctx.replyWithDocument(Input.fromLocalFile(computerSheet, 'مُـلخص_اساسيـات_الحـاسوب.pdf'))
+})
+
+bot.action('sheet-3', async (ctx) => {
+
+    await ctx.replyWithDocument(Input.fromLocalFile(statisticsSheet, 'مُـلخص_علـم_الاحصــاء.pdf'))
+})
+
+bot.action('sheet-4', async (ctx) => {
+
+    await ctx.replyWithDocument(Input.fromLocalFile(commercialSheet, 'مٌـلخص_القـانون_التجـاري.pdf'))
+})
+
+// callback -> exams
 
 bot.action('exams', (ctx) => {
 
@@ -106,7 +139,7 @@ bot.action('exams', (ctx) => {
     })
 })
 
-// info
+// callback -> info
 
 bot.action('info', (ctx) => {
 
@@ -144,7 +177,7 @@ bot.action('home', (ctx) => {
     })
 })
 
-// only for owner
+// to check the bot viewers
 
 bot.on('/views', (ctx) => {
 
@@ -154,13 +187,6 @@ bot.on('/views', (ctx) => {
     }
 })
 
-/*
-// Enable graceful stop
 
-process.once(`SIGINT`, () => bot.stop(`SIGINT`))
-process.once('SIGTERM', () => bot.stop(`SIGTERM`))
-*/
-
-// initiate
-
+// bot init
 bot.launch()
