@@ -43,7 +43,9 @@ bot.start((ctx) => {
 
 bot.action('books', (ctx) => {
 
-    ctx.editMessageText('الكّـتٌب\n_________________________', {
+    const msg = readFileSync('./contents/messages/books.txt', 'utf-8')
+
+    ctx.editMessageText(msg, {
 
         reply_markup: {
 
@@ -61,7 +63,9 @@ bot.action('books', (ctx) => {
 
 bot.action('sheets', (ctx) => {
 
-    ctx.editMessageText('مُلخصـــات\n_________________________', {
+    const msg = readFileSync('./contents/messages/sheets.txt', 'utf-8')
+
+    ctx.editMessageText(msg, {
 
         reply_markup: {
 
@@ -162,7 +166,10 @@ bot.action('info', (ctx) => {
 
 bot.action('home', (ctx) => {
 
-    ctx.editMessageText(`الرئيســــية\n_________________________`, {
+    const name = ctx.chat.first_name
+    const msg = readFileSync('./contents/messages/welcome.txt', 'utf-8')
+
+    ctx.editMessageText(`مرحبـاً ${name}\n\n${msg}`, {
 
         reply_markup: {
 
