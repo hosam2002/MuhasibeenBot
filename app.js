@@ -32,10 +32,10 @@ bot.start((ctx) => {
 
             inline_keyboard: [
 
-                [{text: 'الكٌـتٌب', callback_data: "books"}],
-                [{text: 'ملخصــات', callback_data: "sheets"}],
-                [{text: 'امتِحــانات',callback_data: "exams"}],
-                [{text: 'عن البـوت', callback_data: 'info'}]
+                [{text: 'الكٌـتٌب', callback_data: "books-0"}],
+                [{text: 'ملخصــات', callback_data: "sheets-0"}],
+                [{text: 'امتِحــانات',callback_data: "exams-0"}],
+                [{text: 'عن البـوت', callback_data: 'info-0'}]
             ]
         }
     })
@@ -44,6 +44,24 @@ bot.start((ctx) => {
 // on callback -> books main
 
 bot.action('books', async (ctx) => {
+
+    const msg = readFileSync('./contents/messages/books.txt', 'utf-8')
+
+    await ctx.editMessageText(`${msg}`, {
+
+        reply_markup: {
+
+            inline_keyboard: [
+
+                [{text: 'محاسبـة تكاليف', callback_data: 'book-1'}],
+                [{text: 'مبـادئ التسـويق', callback_data: 'book-2'}],
+                [{text: 'رجـوع', callback_data: 'home'}]
+            ]
+        }
+    })
+})
+
+bot.action('books-0', async (ctx) => {
 
     const msg = readFileSync('./contents/messages/books.txt', 'utf-8')
 
@@ -86,6 +104,26 @@ bot.action('home', async (ctx) => {
 // on callback -> sheets main
 
 bot.action('sheets', async (ctx) => {
+
+    const msg = readFileSync('./contents/messages/sheets.txt', 'utf-8')
+
+    await ctx.editMessageText(`${msg}`, {
+
+        reply_markup: {
+
+            inline_keyboard: [
+
+                [{text: 'مبـادئ التسويـق', callback_data: 'sheet-1'}],
+                [{text: 'حـــاسوب', callback_data: 'sheet-2'}],
+                [{text: 'عـلم الاحصــاء', callback_data: 'sheet-3'}],
+                [{text: 'قــانون تجاري', callback_data: 'sheet-4'}],
+                [{text: 'رجــوغ', callback_data: 'home'}]
+            ]
+        }
+    })
+})
+
+bot.action('sheets-0', async (ctx) => {
 
     const msg = readFileSync('./contents/messages/sheets.txt', 'utf-8')
 
@@ -158,9 +196,43 @@ bot.action('exams', async (ctx) => {
     })
 })
 
+bot.action('exams-0', async (ctx) => {
+
+    const msg = readFileSync('./contents/messages/exams.txt')
+
+    await ctx.editMessageText(`${msg}`, {
+
+        reply_markup: {
+
+            inline_keyboard: [
+
+                [{text: 'راسلنــي', url: 'https://t.me/hosamumbaddi'}],
+                [{text: 'رجــوع', callback_data: 'home'}]
+            ]
+        }
+    })
+})
+
 // on callback -> info
 
 bot.action('info', async (ctx) => {
+
+    const msg = readFileSync('./contents/messages/info.txt', 'utf-8')
+
+    await ctx.editMessageText(`${msg}`, {
+
+        reply_markup: {
+
+            inline_keyboard: [
+
+                [{text: 'راسلنــي', url: `https://t.me/hosamumbaddi`}],                    
+                [{text: 'رجــوع', callback_data: 'home'}]
+            ]
+        }
+    })
+})
+
+bot.action('info-0', async (ctx) => {
 
     const msg = readFileSync('./contents/messages/info.txt', 'utf-8')
 
