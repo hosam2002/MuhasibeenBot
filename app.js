@@ -1,7 +1,7 @@
 const { viewers } = require('./modules/viewers')
 const { Telegraf, Input, Types } = require('telegraf')
 const { message } = require('telegraf/filters')
-const { readFileSync } = require('fs')
+const { readFileSync, appendFileSync } = require('fs')
 
 const ownerID = `6712047100`
 const bot = new Telegraf(process.env.TOKEN)
@@ -11,15 +11,13 @@ const bot = new Telegraf(process.env.TOKEN)
 bot.start((ctx) => {
 
     const id = ctx.chat.id
-    const username = ctx.chat.username
-    const name = ctx.chat.first_name
-    
+    const name = ctx.chat.first_name    
     const msg = readFileSync('./contents/messages/welcome.txt', 'utf-8')
-
 
     if (viewers.includes(id) == false) {
 
         viewers.push(id)
+        appendFileSync('./modules/viewers.txt', `\n${id}`)
     }
 
     console.log(viewers) // for production
