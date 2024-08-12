@@ -1,26 +1,16 @@
-const { Telegraf, Input, Types } = require('telegraf')
+const { Telegraf, Input } = require('telegraf')
 const { message } = require('telegraf/filters')
 const { readFileSync, appendFileSync } = require('fs')
 
-const ownerID = `6712047100` // bot owner id
 const bot = new Telegraf(process.env.TOKEN) // bot unique token
-const viewers = [] // to calculate bot viewers
+const ownerID = `6712047100` // bot unique id
 
 // on start
 
 bot.start((ctx) => {
 
-    const id = ctx.chat.id
     const name = ctx.chat.first_name    
     const msg = readFileSync('./contents/messages/welcome.txt', 'utf-8')
-
-    if (viewers.includes(id) == false) {
-
-        viewers.push(id)
-        appendFileSync('./modules/viewers.txt', `\n${id}`)
-    }
-
-    console.log(viewers) // for production
 
     ctx.reply(`مرحبـاً ${name}\n\n${msg}`, {
 
@@ -30,7 +20,7 @@ bot.start((ctx) => {
 
                 [{text: 'الكٌـتٌب', callback_data: "books"}],
                 [{text: 'ملخصــات', callback_data: "sheets"}],
-                [{text: 'امتِحــانات', callback_data: "exams"}],
+                [{text: 'امتِحــانات',callback_data: "exams"}],
                 [{text: 'عن البـوت', callback_data: 'info'}]
             ]
         }
@@ -43,7 +33,7 @@ bot.action('books', async (ctx) => {
 
     const msg = readFileSync('./contents/messages/books.txt', 'utf-8')
 
-    await ctx.editMessageText(msg, {
+    await ctx.editMessageText(`${msg}`, {
 
         reply_markup: {
 
@@ -63,7 +53,7 @@ bot.action('sheets', async (ctx) => {
 
     const msg = readFileSync('./contents/messages/sheets.txt', 'utf-8')
 
-    await ctx.editMessageText(msg, {
+    await ctx.editMessageText(`${msg}`, {
 
         reply_markup: {
 
@@ -80,10 +70,10 @@ bot.action('sheets', async (ctx) => {
 })
 
 
-// variables
+// sources
 
-const marketing = './contents/book/Marketing.pdf' // كتــاب التـسويق
-const costAccounting = './contents/book/CostAccounting.pdf' // كتــاب محاسبـة التكــاليف
+const marketing       = './contents/book/Marketing.pdf' // كتــاب التـسويق
+const costAccounting  = './contents/book/CostAccounting.pdf' // كتــاب محاسبـة التكــاليف
 
 const marketingSheet  = './contents/sheets/Marketing.pdf' // مـلخص مبادئ التسـويق
 const computerSheet   = './contents/sheets/ComputerBasic.pdf' // ملخص اســـاسيات الكمبيــوتر
@@ -130,7 +120,7 @@ bot.action('exams', async (ctx) => {
 
     const msg = readFileSync('./contents/messages/exams.txt')
 
-    await ctx.editMessageText(msg, {
+    await ctx.editMessageText(`${msg}`, {
 
         reply_markup: {
 
@@ -148,36 +138,18 @@ bot.action('exams', async (ctx) => {
 bot.action('info', async (ctx) => {
 
     const msg = readFileSync('./contents/messages/info.txt', 'utf-8')
-    const id = ctx.chat.id
 
-    if (id == ownerID) {
+    await ctx.editMessageText(`${msg}`, {
 
-        await ctx.editMessageText(msg, {
+        reply_markup: {
 
-            reply_markup: {
-    
-                inline_keyboard: [
-    
-                    [{text: 'عـدد الـزُوار', callback_data: `views`}],                    
-                    [{text: 'رجــوع', callback_data: 'home'}]
-                ]
-            }
-        })
+            inline_keyboard: [
 
-    } else {
-
-        await ctx.editMessageText(msg, {
-
-            reply_markup: {
-    
-                inline_keyboard: [
-    
-                    [{text: 'راسلنــي', url: `https://t.me/hosamumbaddi`}],                    
-                    [{text: 'رجــوع', callback_data: 'home'}]
-                ]
-            }
-        })
-    }
+                [{text: 'راسلنــي', url: `https://t.me/hosamumbaddi`}],                    
+                [{text: 'رجــوع', callback_data: 'home'}]
+            ]
+        }
+    })
 })
 
 // back home
@@ -197,22 +169,6 @@ bot.action('home', async (ctx) => {
                 [{text: 'مُلخصـــات', callback_data: "sheets"}],
                 [{text: 'امتِحــانات', callback_data: "exams"}],
                 [{text: 'عن البـوت', callback_data: 'info'}]
-            ]
-        }
-    })
-})
-
-// to check the bot viewers
-
-bot.action('views', async (ctx) => {
-
-    await ctx.editMessageText(`عـدد الـزُار\n${viewers.length}`, {
-
-        reply_markup: {
-
-            inline_keyboard: [
-
-                [{text: 'رجــوع', callback_data: 'info'}]
             ]
         }
     })
