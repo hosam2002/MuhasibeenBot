@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "scripts": {
-    "build": "node app.js"
-  },
   "author": "hosamumbaddi",
   "license": "ISC",
   "dependencies": {
