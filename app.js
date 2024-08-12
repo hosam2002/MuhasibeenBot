@@ -74,10 +74,10 @@ bot.action('home', async (ctx) => {
 
             inline_keyboard: [
 
-                [{text: 'الكٌـتٌب', callback_data: "books"}],
-                [{text: 'مُلخصـــات', callback_data: "sheets"}],
-                [{text: 'امتِحــانات', callback_data: "exams"}],
-                [{text: 'عن البـوت', callback_data: 'info'}]
+                [{text: 'الكٌــتٌب', callback_data: "books"}],
+                [{text: 'مُلخصــات', callback_data: "sheets"}],
+                [{text: 'امتِحـانات', callback_data: "exams"}],
+                [{text: 'عـن البـوت', callback_data: 'info'}]
             ]
         }
     })
