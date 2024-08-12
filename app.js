@@ -159,7 +159,7 @@ bot.action('home', async (ctx) => {
     const name = ctx.chat.first_name
     const msg = readFileSync('./contents/messages/welcome.txt', 'utf-8')
 
-    await ctx.editMessageText(`مرحبـاً ${name}\n\n${msg}`, {
+    await ctx.editMessageText(`مرحبـاً\n\n${msg}`, {
 
         reply_markup: {
 
