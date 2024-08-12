@@ -194,6 +194,5 @@ bot.command('/subs', async (ctx) => {
     }
 })
 
-
 // bot init
 bot.launch()
