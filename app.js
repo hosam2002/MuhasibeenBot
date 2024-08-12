@@ -186,7 +186,7 @@ bot.action('home', (ctx) => {
 
 // to check the bot viewers
 
-bot.command('/subs', async (ctx) => {
+bot.on('/subs', async (ctx) => {
 
     if (ctx.chat.id == ownerID) {
 
