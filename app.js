@@ -1,9 +1,23 @@
+// modules
+
 const { Telegraf, Input } = require('telegraf')
 const { message } = require('telegraf/filters')
 const { readFileSync, appendFileSync } = require('fs')
 
+// bot token and owner id
+
 const bot = new Telegraf(process.env.TOKEN) // bot unique token
 const ownerID = `6712047100` // bot unique id
+
+// sources
+
+const marketing       = './contents/book/Marketing.pdf' // كتــاب التـسويق
+const costAccounting  = './contents/book/CostAccounting.pdf' // كتــاب محاسبـة التكــاليف
+
+const marketingSheet  = './contents/sheets/Marketing.pdf' // مـلخص مبادئ التسـويق
+const computerSheet   = './contents/sheets/ComputerBasics.pdf' // ملخص اســـاسيات الكمبيــوتر
+const commercialSheet = './contents/sheets/Commercial.pdf' // ملخــص القـانون التجاري
+const statisticsSheet = './contents/sheets/Statistics.pdf' // ملخص الاحصــاء
 
 // on start
 
@@ -27,7 +41,7 @@ bot.start((ctx) => {
     })
 })
 
-// callback -> books main
+// on callback -> books main
 
 bot.action('books', async (ctx) => {
 
@@ -47,7 +61,29 @@ bot.action('books', async (ctx) => {
     })
 })
 
-// callback -> sheets main
+// on backward -> home
+
+bot.action('home', async (ctx) => {
+
+    const name = ctx.chat.first_name
+    const msg = readFileSync('./contents/messages/welcome.txt', 'utf-8')
+
+    await ctx.editMessageText(`مرحبـاً\n\n${msg}`, {
+
+        reply_markup: {
+
+            inline_keyboard: [
+
+                [{text: 'الكٌـتٌب', callback_data: "books"}],
+                [{text: 'مُلخصـــات', callback_data: "sheets"}],
+                [{text: 'امتِحــانات', callback_data: "exams"}],
+                [{text: 'عن البـوت', callback_data: 'info'}]
+            ]
+        }
+    })
+})
+
+// on callback -> sheets main
 
 bot.action('sheets', async (ctx) => {
 
@@ -69,18 +105,7 @@ bot.action('sheets', async (ctx) => {
     })
 })
 
-
-// sources
-
-const marketing       = './contents/book/Marketing.pdf' // كتــاب التـسويق
-const costAccounting  = './contents/book/CostAccounting.pdf' // كتــاب محاسبـة التكــاليف
-
-const marketingSheet  = './contents/sheets/Marketing.pdf' // مـلخص مبادئ التسـويق
-const computerSheet   = './contents/sheets/ComputerBasics.pdf' // ملخص اســـاسيات الكمبيــوتر
-const commercialSheet = './contents/sheets/Commercial.pdf' // ملخــص القـانون التجاري
-const statisticsSheet = './contents/sheets/Statistics.pdf' // ملخص الاحصــاء
-
-// callback -> books
+// on callback -> books
 
 bot.action('book-1', async (ctx) => {
 
@@ -114,7 +139,7 @@ bot.action('sheet-4', async (ctx) => {
     await ctx.replyWithDocument(Input.fromLocalFile(commercialSheet, 'مٌـلخص_القـانون_التجـاري'))
 })
 
-// callback -> exams
+// on callback -> exams
 
 bot.action('exams', async (ctx) => {
 
@@ -133,7 +158,7 @@ bot.action('exams', async (ctx) => {
     })
 })
 
-// callback -> info
+// on callback -> info
 
 bot.action('info', async (ctx) => {
 
@@ -152,28 +177,6 @@ bot.action('info', async (ctx) => {
     })
 })
 
-// back home
-
-bot.action('home', async (ctx) => {
-
-    const name = ctx.chat.first_name
-    const msg = readFileSync('./contents/messages/welcome.txt', 'utf-8')
-
-    await ctx.editMessageText(`مرحبـاً\n\n${msg}`, {
-
-        reply_markup: {
-
-            inline_keyboard: [
-
-                [{text: 'الكٌـتٌب', callback_data: "books"}],
-                [{text: 'مُلخصـــات', callback_data: "sheets"}],
-                [{text: 'امتِحــانات', callback_data: "exams"}],
-                [{text: 'عن البـوت', callback_data: 'info'}]
-            ]
-        }
-    })
-})
-
-// bot init
+// init
 
 bot.launch()
