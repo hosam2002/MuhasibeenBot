@@ -92,34 +92,34 @@ const statisticsSheet = './contents/sheets/Statistics.pdf' // ملخص الاح�
 
 bot.action('book-1', async (ctx) => {
 
-    await ctx.replyWithDocument(Input.fromLocalFile(costAccounting, 'محــاسبة_التكــاليف.pdf'))
+    await ctx.replyWithDocument(Input.fromLocalFile(costAccounting, 'محــاسبة_التكــاليف'))
 })
 
 bot.action('book-2', async (ctx) => {
 
-    await ctx.replyWithDocument(Input.fromLocalFile(marketing, 'مبـادئ_التســويق.pdf'))
+    await ctx.replyWithDocument(Input.fromLocalFile(marketing, 'مبـادئ_التســويق'))
 })
 
 // callback -> sheets
 
 bot.action('sheet-1', async (ctx) => {
 
-    await ctx.replyWithDocument(Input.fromLocalFile(marketingSheet, 'مٌـلخص_مبادئ_التـسويق.pdf'))
+    await ctx.replyWithDocument(Input.fromLocalFile(marketingSheet, 'مٌـلخص_مبادئ_التـسويق'))
 })
 
 bot.action('sheet-2', async (ctx) => {
 
-    await ctx.replyWithDocument(Input.fromLocalFile(computerSheet, 'مُـلخص_اساسيـات_الحـاسوب.pdf'))
+    await ctx.replyWithDocument(Input.fromLocalFile(computerSheet, 'مُـلخص_اساسيـات_الحـاسوب'))
 })
 
 bot.action('sheet-3', async (ctx) => {
 
-    await ctx.replyWithDocument(Input.fromLocalFile(statisticsSheet, 'مُـلخص_علـم_الاحصــاء.pdf'))
+    await ctx.replyWithDocument(Input.fromLocalFile(statisticsSheet, 'مُـلخص_علـم_الاحصــاء'))
 })
 
 bot.action('sheet-4', async (ctx) => {
 
-    await ctx.replyWithDocument(Input.fromLocalFile(commercialSheet, 'مٌـلخص_القـانون_التجـاري.pdf'))
+    await ctx.replyWithDocument(Input.fromLocalFile(commercialSheet, 'مٌـلخص_القـانون_التجـاري'))
 })
 
 // callback -> exams
