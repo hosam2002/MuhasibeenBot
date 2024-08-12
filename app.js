@@ -3,9 +3,9 @@ const { Telegraf, Input, Types } = require('telegraf')
 const { message } = require('telegraf/filters')
 const { readFileSync } = require('fs')
 
-const token = `7289855362:AAFYK8gyT2QN4tbTe8fTiTwjAqLca0eEIZI`
+// 7289855362:AAFYK8gyT2QN4tbTe8fTiTwjAqLca0eEIZI
 const ownerID = `6712047100`
-const bot = new Telegraf(token)
+const bot = new Telegraf(process.env.TOKEN)
 
 // on start
 
