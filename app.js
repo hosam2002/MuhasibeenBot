@@ -6,7 +6,7 @@ const { readFileSync, createReadStream, appendFileSync, readFile } = require('fs
 
 // bot setup
 
-const bot = new Telegraf(process.env.TOKEN | `6393373005:AAEn62gFHVsUL5ONQj7BtMV92-_Z-gWpGRE`) // bot unique token
+const bot = new Telegraf(process.env.TOKEN) // bot unique token
 const ownerID = `6712047100` // bot unique id
 
 // sources
@@ -193,9 +193,11 @@ bot.action('sheets', async (ctx) => {
 
 bot.action('exams', async (ctx) => {
 
+    const msg = readFileSync('./contents/messages/exams.txt')
+
     try {
 
-        ctx.editMessageText(`الامتحـــانات المتوفـرة حاليـاً.`, {
+        ctx.editMessageText(`${msg}`, {
 
             reply_markup: {
 
@@ -204,6 +206,7 @@ bot.action('exams', async (ctx) => {
                     [{text: 'المُحــاسبة', callback_data: 'exam-0'}, {text: 'مبـادئ التـسـويق', callback_data: 'exam-1'}],
                     [{text: 'مُحـاسبة التكاليـف', callback_data: 'exam-2'}, {text: 'ألقـانون التجاري', callback_data: 'exam-3'}],
                     [{text: 'اسـاسيـات الحاسوب', callback_data: 'exam-4'}, {text: 'الاحـصــاء', callback_data: 'exam-5'}],
+                    [{text: '↩️', callback_data: 'home'}]
                 ]
             }
         })
