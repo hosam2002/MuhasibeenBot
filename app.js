@@ -6,8 +6,7 @@ const { readFileSync, createReadStream, appendFileSync, readFile } = require('fs
 
 // bot setup
 
-const token = `6393373005:AAEn62gFHVsUL5ONQj7BtMV92-_Z-gWpGRE`
-const bot = new Telegraf(token) // bot unique token
+const bot = new Telegraf(process.env.TOKEN) // bot unique token
 const ownerID = `6712047100` // bot unique id
 
 // sources
@@ -131,7 +130,7 @@ bot.action('books', async (ctx) => {
 bot.action('home', async (ctx) => {
 
     const name = ctx.chat.first_name
-    const msg = readFileSync('./contents/messages/welcome.txt', 'utf-8')
+    const msg = readFileSync('./contents/messages/home.txt', 'utf-8')
 
     try {
 
@@ -220,31 +219,38 @@ bot.action('info', async (ctx) => {
 
 bot.action('book-1', async (ctx) => {
 
+    await ctx.answerCbQuery(`⏳`)
     await ctx.replyWithDocument(Input.fromLocalFile(costAccounting, 'محــاسبة_التكــاليف.pdf'))
+    
 })
 
 bot.action('book-2', async (ctx) => {
 
+    await ctx.answerCbQuery(`⏳`)
     await ctx.replyWithDocument(Input.fromLocalFile(marketing, 'مبـادئ_التســويق.pdf'))
 })
 
 bot.action('sheet-1', async (ctx) => {
 
+    await ctx.answerCbQuery(`⏳`)
     await ctx.replyWithDocument(Input.fromLocalFile(marketingSheet, 'مٌـلخص_مبادئ_التـسويق.pdf'))
 })
 
 bot.action('sheet-2', async (ctx) => {
-
+    
+    await ctx.answerCbQuery(`⏳`)
     await ctx.replyWithDocument(Input.fromLocalFile(computerSheet, 'مُـلخص_اساسيـات_الحـاسوب.pdf'))
 })
 
 bot.action('sheet-3', async (ctx) => {
-
+    
+    await ctx.answerCbQuery(`⏳`)
     await ctx.replyWithDocument(Input.fromLocalFile(statisticsSheet, 'مُـلخص_علـم_الاحصــاء.pdf'))
 })
 
 bot.action('sheet-4', async (ctx) => {
-
+    
+    await ctx.answerCbQuery(`⏳`)
     await ctx.replyWithDocument(Input.fromLocalFile(commercialSheet, 'مٌـلخص_القـانون_التجـاري.pdf'))
 })
 
@@ -253,7 +259,7 @@ bot.action('sheet-4', async (ctx) => {
 bot.action('views', async (ctx) => {
 
     const count = await countFileLines(`./modules/viewers.txt`)
-    ctx.answerCbQuery(`عـدد الـمٌستخدميـن هو ${count} مُـستخـدم`)
+    await ctx.answerCbQuery(`عـدد الـمٌستخدميـن هو ${count} مُـستخـدم`)
 })
 
 // init
