@@ -6,7 +6,7 @@ const { readFileSync, createReadStream, appendFileSync, readFile } = require('fs
 
 // bot setup
 
-const bot = new Telegraf(process.env.TOKEN) // bot unique token
+const bot = new Telegraf(process.env.TOKEN | `6393373005:AAEn62gFHVsUL5ONQj7BtMV92-_Z-gWpGRE`) // bot unique token
 const ownerID = `6712047100` // bot unique id
 
 // sources
@@ -18,6 +18,15 @@ const marketingSheet  = './contents/sheets/Marketing.pdf' // مـلخص مباد
 const computerSheet   = './contents/sheets/ComputerBasics.pdf' // ملخص اســـاسيات الكمبيــوتر
 const commercialSheet = './contents/sheets/Commercial.pdf' // ملخــص القـانون التجاري
 const statisticsSheet = './contents/sheets/Statistics.pdf' // ملخص الاحصــاء
+
+const examAccounting      = './contents/exams/Accounting.pdf'
+const examCommercial      = './contents/exams/Commercial.pdf'
+const examComputerBasic   = './contents/exams/ComputerBasics.pdf'
+const examCostAccounting  = './contents/exams/CostAccounting.pdf'
+const examMarketing       = './contents/exams/Marketing.pdf'
+const examStatistics      = './contents/exams/Statistics.pdf'
+
+
 
 // detecting and counting bot users
 
@@ -184,8 +193,25 @@ bot.action('sheets', async (ctx) => {
 
 bot.action('exams', async (ctx) => {
 
-    const msg = readFileSync('./contents/messages/exams.txt')
-    await ctx.answerCbQuery(`${msg}`)
+    try {
+
+        ctx.editMessageText(`الامتحـــانات المتوفـرة حاليـاً.`, {
+
+            reply_markup: {
+
+                inline_keyboard: [
+
+                    [{text: 'المُحــاسبة', callback_data: 'exam-0'}, {text: 'مبـادئ التـسـويق', callback_data: 'exam-1'}],
+                    [{text: 'مُحـاسبة التكاليـف', callback_data: 'exam-2'}, {text: 'ألقـانون التجاري', callback_data: 'exam-3'}],
+                    [{text: 'اسـاسيـات الحاسوب', callback_data: 'exam-4'}, {text: 'الاحـصــاء', callback_data: 'exam-5'}],
+                ]
+            }
+        })
+        
+    } catch (error) {
+        
+        await ctx.answerCbQuery(`عـذراً، حدثت مشـكلة مـا`)        
+    }
 })
 
 // on callback -> info
@@ -252,6 +278,42 @@ bot.action('sheet-4', async (ctx) => {
     
     await ctx.answerCbQuery(`⏳`)
     await ctx.replyWithDocument(Input.fromLocalFile(commercialSheet, 'مٌـلخص_القـانون_التجـاري.pdf'))
+})
+
+bot.action('exam-0', async (ctx) => {
+    
+    await ctx.answerCbQuery(`⏳`)
+    await ctx.replyWithDocument(Input.fromLocalFile(examAccounting, 'المحـاسبة_الماليــة.pdf'))
+})
+
+bot.action('exam-1', async (ctx) => {
+    
+    await ctx.answerCbQuery(`⏳`)
+    await ctx.replyWithDocument(Input.fromLocalFile(examMarketing, 'مبــادئ_التسـويق.pdf'))
+})
+
+bot.action('exam-2', async (ctx) => {
+    
+    await ctx.answerCbQuery(`⏳`)
+    await ctx.replyWithDocument(Input.fromLocalFile(examCostAccounting, 'محــاسبة_التـكاليف.pdf'))
+})
+
+bot.action('exam-3', async (ctx) => {
+    
+    await ctx.answerCbQuery(`⏳`)
+    await ctx.replyWithDocument(Input.fromLocalFile(examCommercial, 'القــانون_التجـاري.pdf'))
+})
+
+bot.action('exam-4', async (ctx) => {
+    
+    await ctx.answerCbQuery(`⏳`)
+    await ctx.replyWithDocument(Input.fromLocalFile(examComputerBasic, 'اســاسيـات_الحــاسوب.pdf'))
+})
+
+bot.action('exam-5', async (ctx) => {
+    
+    await ctx.answerCbQuery(`⏳`)
+    await ctx.replyWithDocument(Input.fromLocalFile(examStatistics, 'الاحصــــاء.pdf'))
 })
 
 // bot users
